@@ -1,3 +1,4 @@
+from lib2to3.pytree import NegatedPattern
 from tkinter.messagebox import showinfo
 
 
@@ -24,7 +25,13 @@ while True:
         case "1":
             titulo_libro = input("Ingrese el titulo del libro: ")
             autor_libro = input("Ingrese el autor del libro: ")
-            publicacion_libro = input("Ingrese el año de publicación: ")
+            while True:
+                try:
+                    publicacion_libro = int(input("Ingrese el año de publicación: "))
+                except ValueError:
+                    print(f"Valor incorrecto")
+                else:
+                    break
             print()
 
             book1 = Libro(titulo_libro, autor_libro, publicacion_libro)
