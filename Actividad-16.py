@@ -18,6 +18,7 @@ while True:
     print("3. Eliminar libro por título")
     print("4. Salir del programa")
     menu = input("Seleccione una opcion: ")
+    print()
 
     match menu:
         case "1":
@@ -31,10 +32,31 @@ while True:
             books.append(book1)
 
         case "2":
+            if not books:
+                print("No hay libros registrados")
+                print()
+            else:
+                count = 0
+                for i in books:
+                    print(f"Titulo: {books[count].tittle}")
+                    print(f"Autor: {books[count].author}")
+                    print(f"Año de publicación: {books[count].publiYear}")
+                    print()
+                    count += 1
+
+        case "3":
+            libro = input("Ingrese el titulo del libro que quiere eliminar: ").lower()
             count = 0
             for i in books:
-                print(f"Titulo: {books[count].tittle}")
-                print(f"Autor: {books[count].author}")
-                print(f"Año de publicación: {books[count].publiYear}")
-                print()
-                count += 1
+                if libro == books[count].tittle.lower():
+                    books.remove(books[count])
+                else:
+                    print("Pelicula no encontrada")
+
+        case "4":
+            print("Hasta pronto!")
+            break
+
+        case _:
+            print("opcion invalida")
+            print()
