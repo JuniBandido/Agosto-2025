@@ -8,7 +8,7 @@ students = []
 
 while True:
     menu = input(
-        "1. Agregar estudiante\n2. Eliminar estudiante\n3. Buscar estudiante\n4. Ordenar lista\n5. Salir\nEscoja una opcion (1-5): ")
+        "1. Agregar estudiante\n2. Eliminar estudiante\n3. Buscar estudiante\n4. Ordenar lista al revés\n5. Salir\nEscoja una opcion (1-5): ")
     print()
     match menu:
         case "1":
@@ -27,9 +27,24 @@ while True:
                 count = 0
                 studentCarnet = input("Ingrese el carnet del estudiante que quiere eliminar: ")
                 for i in students:
-                    if studentCarnet == students[count]:
+                    count += 1
+                    if studentCarnet == students[count].carnet:
                         students.remove(students[count])
-                    else:
-                        print("No se encontró estudiante")
-                print(students[count].name)
+
+        case "3":
+            if not students:
+                print("No hay estudiantes registrados!")
+                print()
+            else:
+                count = 0
+                studentSearch = input("Ingrese el nombre de del estudiante que quiere buscar: ")
+                for i in students:
+                    if studentSearch == students[count].name:
+                        print(f"Nombre: {students[count].name}\nCarnet: {students[count].carnet}\nGrado: {students[count].grade}")
+                        print()
+                        count += 1
+
+        case "4":
+            print("Se pondrán los ultimos registrados al principio de la lista")
+            students.reverse()
 
