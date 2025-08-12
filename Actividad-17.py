@@ -48,3 +48,9 @@ while True:
             print("Se pondrán los ultimos registrados al principio de la lista")
             students.reverse()
 
+        case "5":
+            print("Hasta pronto!")
+            break
+
+        case _:
+            print("Opcion no disponible")
