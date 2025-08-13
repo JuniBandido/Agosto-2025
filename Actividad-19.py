@@ -1,3 +1,5 @@
+listCoockies = []
+
 class Galletas:
     def __init__(self, name, price, weight):
         self.name = name
@@ -33,16 +35,32 @@ class GalletaRellena(Galletas, Relleno):
         return f"{Galletas.mostrar_info(self)}, {Relleno.sabor_relleno(self)} y {Relleno.describir_relleno(self)}"
 
 class RegistrarGalletaBasica:
-    def __init__(self):
-        self.listCoockies = []
-
     def add(self):
         try:
             name = input("Ingrese el nombre de la galleta: ")
             price = int(input("Ingrese el precio de la galleta: "))
             weight = input("Ingrese el peso de la galleta: ")
-            self.listCoockies.append(Galletas(name, price, weight))
+            listCoockies.append(Galletas(name, price, weight))
             print("Galleta agregada!")
         except ValueError:
             print("El precio debe ser un número")
 
+    def delete(self):
+        coockieToDelete = input("Ingrese el nombre de la galleta que quiere eliminar: ")
+        for i in listCoockies:
+            if i.name.lower() == coockieToDelete.lower():
+                listCoockies.remove(i)
+                print("Galleta eliminada")
+
+    def show(self):
+        if not listCoockies:
+            print("No hay galletas registradas")
+        else:
+            for i, x in enumerate(listCoockies, start=1):
+                print(f"{i}. {x.mostrar_info()}")
+
+i = RegistrarGalletaBasica()
+i.add()
+i.show()
+i.delete()
+print(listCoockies)
