@@ -7,7 +7,7 @@ class Galletas:
         self.weight = weight
 
     def mostrar_info(self):
-       return f"Nombre Galleta: {self.name}\nPrecio: {self.price}\nPeso: {self.weight}"
+       print(f"Nombre Galleta: {self.name} | Precio: {self.price} | Peso: {self.weight}")
 
 class GalletaChispas(Galletas):
     def cantidad_chispas(self):
@@ -34,33 +34,65 @@ class GalletaRellena(Galletas, Relleno):
     def mostrar_galletaRellena(self):
         return f"{Galletas.mostrar_info(self)}, {Relleno.sabor_relleno(self)} y {Relleno.describir_relleno(self)}"
 
-class RegistrarGalletaBasica:
-    def add(self):
-        try:
-            name = input("Ingrese el nombre de la galleta: ")
-            price = int(input("Ingrese el precio de la galleta: "))
-            weight = input("Ingrese el peso de la galleta: ")
-            listCoockies.append(Galletas(name, price, weight))
-            print("Galleta agregada!")
-        except ValueError:
-            print("El precio debe ser un número")
+class RegistrarBasica(Galletas):
+    def registrar_galleta_basica(self):
+        name = input("Ingresa el nombre: ")
+        price = int(input("Ingresa el precio: "))
+        weight = input("Ingresa el peso: ")
+        print()
+        listCoockies.append(Galletas(name, price, weight))
 
-    def delete(self):
-        coockieToDelete = input("Ingrese el nombre de la galleta que quiere eliminar: ")
+def mostrar_galletas():
+    if not listCoockies:
+        print("No hay galletas registradas!")
+    else:
+        print("\nLista de galletas:")
+        i = 1
+        for x in listCoockies:
+            print(f"{i}. ", end="")
+            x.mostrar_info()
+            i += 1
+    print()
+
+def buscar_nombre():
+    if not listCoockies:
+        print("No hay galletas registradas!")
+    else:
+        x = input("Ingrese el nombre de la galleta que quiere buscar: ").lower()
         for i in listCoockies:
-            if i.name.lower() == coockieToDelete.lower():
+            if x == i.name.lower():
+                i.mostrar_info()
+    print()
+
+def eliminar_nombre():
+    if not listCoockies:
+        print("No hay galletas registradas!")
+    else:
+        x = input("Ingrese el nombre de la galleta que quiere eliminar: ")
+        for i in listCoockies:
+            if x.lower() == i.name.lower():
                 listCoockies.remove(i)
-                print("Galleta eliminada")
+    print()
 
-    def show(self):
-        if not listCoockies:
-            print("No hay galletas registradas")
-        else:
-            for i, x in enumerate(listCoockies, start=1):
-                print(f"{i}. {x.mostrar_info()}")
+while True:
+    menu = input("1. Agregar galleta\n4. Mostrar Lista\n5. Buscar por nombre\n6. Eliminar\n7. Salir\nEscoja una opcion: ")
+    print()
+    match menu:
+        case "1":
+            RegistrarBasica.registrar_galleta_basica(Galletas)
 
-i = RegistrarGalletaBasica()
-i.add()
-i.show()
-i.delete()
-print(listCoockies)
+        case "4":
+            mostrar_galletas()
+
+        case "5":
+            buscar_nombre()
+
+        case "6":
+            eliminar_nombre()
+
+        case "7":
+            print("Hasta pronto!")
+            break
+
+        case _:
+            print("Opcion no valida")
